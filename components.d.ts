@@ -8,7 +8,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ActivityCarousel: typeof import('./src/components/ActivityCarousel.vue')['default']
+    BookStats: typeof import('./src/components/BookStats.vue')['default']
     Header: typeof import('./src/components/header.vue')['default']
+    PointsLeaderboard: typeof import('./src/components/PointsLeaderboard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheCounter: typeof import('./src/components/TheCounter.vue')['default']

@@ -1,12 +1,42 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const showDropdown = ref(false)
 
 const menuItems = ref([
-  { name: '首页', link: '/' },
-  { name: '活动', link: '/products' },
-  { name: '图书', link: '/services' },
-  { name: '积分商城', link: '/about' },
+  { name: '首页', link: '/home' },
+  { name: '活动', link: '/activity' },
+  { name: '图书', link: '/book' },
+  { name: '积分商城', link: '/score' },
 ])
+
+const handleAvatarClick = () => {
+  showDropdown.value = !showDropdown.value
+}
+
+const handleMyClick = () => {
+  router.push('/my')
+  showDropdown.value = false
+}
+
+const handleLogout = () => {
+  // 实现登出逻辑
+  showDropdown.value = false
+}
+
+// 点击外部关闭下拉菜单
+const closeDropdown = (e) => {
+  if (!e.target.closest('.avatar-dropdown')) {
+    showDropdown.value = false
+  }
+}
+
+// 添加全局点击事件监听
+if (typeof window !== 'undefined') {
+  window.addEventListener('click', closeDropdown)
+}
 </script>
 
 <template>
@@ -44,12 +74,42 @@ const menuItems = ref([
 
         <!-- Right Section -->
         <div class="flex items-center space-x-4">
-          <a href="/contact" class="text-gray-600 hover:text-gray-900 font-medium text-sm">后台管理</a>
-          <div class="h-8 w-8 rounded-full bg-gray-200 overflow-hidden">
-            <img src="https://via.placeholder.com/32" alt="User avatar" class="h-full w-full object-cover">
+          <a href="/admin" class="text-gray-600 hover:text-gray-900 font-medium text-sm">后台管理</a>
+          <div class="relative avatar-dropdown">
+            <button
+              @click="handleAvatarClick"
+              class="h-8 w-8 rounded-full bg-gray-200 overflow-hidden hover:ring-2 hover:ring-blue-500 focus:outline-none"
+            >
+              <img src="https://via.placeholder.com/32" alt="User avatar" class="h-full w-full object-cover">
+            </button>
+
+            <div
+              v-if="showDropdown"
+              class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50"
+            >
+              <button
+                @click="handleMyClick"
+                class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+              >
+                我的
+              </button>
+              <button
+                @click="handleLogout"
+                class="block w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100 text-left"
+              >
+                退出
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </header>
 </template>
+
+<style scoped>
+.avatar-dropdown {
+  position: relative;
+  display: inline-block;
+}
+</style>
