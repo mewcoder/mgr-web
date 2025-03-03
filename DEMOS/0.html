@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术平台部 - 活动管理系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- 顶部导航栏 -->
+    <header class="fixed w-full top-0 bg-white shadow-sm z-50">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="text-gray-800">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm font-light uppercase">技术平台部</p>
+                    <p class="text-base font-bold tracking-widest">活动管理系统</p>
+                </div>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="text-gray-600 hover:text-gray-900">首页</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">活动中心</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">图书借阅</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">积分商城</a>
+                <a href="#" class="text-gray-600 hover:text-gray-900">个人中心</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-600 hover:text-gray-900">后台管理</a>
+                <button class="h-8 w-8 rounded-full bg-gray-200 overflow-hidden hover:ring-2 hover:ring-blue-500">
+                    <img src="https://via.placeholder.com/32" alt="用户头像" class="h-full w-full object-cover">
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="container mx-auto px-4 pt-20">
+        <!-- 活动轮播图 -->
+        <section class="mt-6 bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-2xl font-bold mb-4">精选活动</h2>
+            <div class="relative h-[400px] bg-gray-200 rounded-lg">
+                <!-- 轮播图占位 -->
+                <div class="absolute inset-0 flex items-center justify-center text-gray-500">
+                    活动轮播图展示区域
+                </div>
+            </div>
+        </section>
+
+        <!-- 功能模块区域 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-6">
+            <!-- 活动报名模块 -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold">活动报名</h3>
+                    <a href="#" class="text-blue-600 hover:text-blue-800">查看更多</a>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-medium mb-2">技术分享会</h4>
+                        <p class="text-sm text-gray-600 mb-2">时间：2024-02-20 14:00</p>
+                        <p class="text-sm text-gray-600">地点：3号会议室</p>
+                        <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">立即报名</button>
+                    </div>
+                    <!-- 更多活动卡片 -->
+                </div>
+            </div>
+
+            <!-- 图书借阅模块 -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold">图书借阅</h3>
+                    <a href="#" class="text-blue-600 hover:text-blue-800">查看更多</a>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-medium mb-2">深入理解计算机系统</h4>
+                        <p class="text-sm text-gray-600 mb-2">状态：可借阅</p>
+                        <p class="text-sm text-gray-600">位置：技术书架-A12</p>
+                        <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">借阅</button>
+                    </div>
+                    <!-- 更多图书卡片 -->
+                </div>
+            </div>
+
+            <!-- 积分商城模块 -->
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold">积分商城</h3>
+                    <a href="#" class="text-blue-600 hover:text-blue-800">查看更多</a>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-medium mb-2">限量纪念T恤</h4>
+                        <p class="text-sm text-gray-600 mb-2">积分：1000</p>
+                        <p class="text-sm text-gray-600">库存：10件</p>
+                        <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">兑换</button>
+                    </div>
+                    <!-- 更多商品卡片 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据统计区域 -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-bold mb-4">活动参与统计</h3>
+                <div class="h-[300px] bg-gray-100 rounded flex items-center justify-center text-gray-500">
+                    活动统计图表展示区域
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-xl font-bold mb-4">积分排行榜</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-lg font-bold text-blue-600">1</span>
+                            <img src="https://via.placeholder.com/32" alt="用户头像" class="w-8 h-8 rounded-full">
+                            <span>张三</span>
+                        </div>
+                        <span class="font-medium">2000积分</span>
+                    </div>
+                    <!-- 更多排行项 -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white border-t mt-12">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center text-gray-600">
+                <p>© 2024 技术平台部 活动管理系统</p>
+                <p class="mt-2">技术支持：技术平台部</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部门活动管理平台</title>
+    <style>
+        /* 全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #3498db;
+        }
+        
+        /* 主内容区样式 */
+        .main-content {
+            display: flex;
+            margin-top: 30px;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-right: 20px;
+        }
+        
+        .sidebar-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-menu a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        .content-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* 卡片样式 */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .card {
+            width: calc(33.33% - 14px);
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card-img {
+            height: 180px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-content {
+            padding: 15px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .card-text {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .btn-secondary {
+            background-color: #95a5a6;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+        
+        /* 表格样式 */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+        
+        .table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .form-control:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        /* 标签页样式 */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom-color: #3498db;
+            color: #3498db;
+        }
+        
+        /* 页脚样式 */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer-container {
+            width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            width: 30%;
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+        
+        /* 后台管理样式 */
+        .admin-header {
+            background-color: #34495e;
+            color: white;
+            padding: 15px 0;
+        }
+        
+        .admin-sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            height: calc(100vh - 60px);
+            position: fixed;
+            left: 0;
+            top: 60px;
+        }
+        
+        .admin-sidebar-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+        
+        .admin-sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .admin-sidebar-menu a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 12px 20px;
+            transition: all 0.3s;
+        }
+        
+        .admin-sidebar-menu a:hover, .admin-sidebar-menu a.active {
+            background-color: #3498db;
+        }
+        
+        .admin-content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container, .navbar-container, .footer-container {
+                width: 100%;
+            }
+            
+            .card {
+                width: calc(50% - 10px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .card {
+                width: 100%;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+            }
+            
+            .footer-section {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 前台用户界面 -->
+    <div id="user-interface">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="logo">部门活动管理平台</div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">首页</a></li>
+                    <li><a href="#activity">活动报名</a></li>
+                    <li><a href="#library">图书借阅</a></li>
+                    <li><a href="#points">积分商城</a></li>
+                    <li><a href="#admin">后台管理</a></li>
+                    <li><a href="#login">登录/注册</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- 主内容区 -->
+        <div class="container">
+            <div class="main-content">
+                <!-- 侧边栏 -->
+                <div class="sidebar">
+                    <h3 class="sidebar-title">功能导航</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="active">首页</a></li>
+                        <li><a href="#activity">活动报名</a></li>
+                        <li><a href="#activity-history">历史活动</a></li>
+                        <li><a href="#library">图书借阅</a></li>
+                        <li><a href="#my-books">我的借阅</a></li>
+                        <li><a href="#points">积分商城</a></li>
+                        <li><a href="#my-points">我的积分</a></li>
+                        <li><a href="#my-profile">个人中心</a></li>
+                    </ul>
+                    
+                    <h3 class="sidebar-title" style="margin-top: 30px;">个人信息</h3>
+                    <div style="padding: 10px;">
+                        <p><strong>用户名:</strong> 张三</p>
+                        <p><strong>部门:</strong> 技术部</p>
+                        <p><strong>积分:</strong> 350</p>
+                        <p><strong>借阅数:</strong> 2本</p>
+                    </div>
+                </div>
+                
+                <!-- 内容区 -->
+                <div class="content">
+                    <!-- 首页内容 -->
+                    <div id="home-content">
+                        <h2 class="content-title">最新活动</h2>
+                        <div class="card-container">
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=活动图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">团队建设活动</h3>
+                                    <p class="card-text">参与团队建设活动，增强团队凝聚力，共同完成挑战任务获取积分奖励。</p>
+                                    <p><strong>时间:</strong> 2023-12-15 14:00</p>
+                                    <p><strong>地点:</strong> 公司大会议室</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>已报名: 15/30</span>
+                                    <a href="#" class="btn">立即报名</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=活动图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">技术分享会</h3>
+                                    <p class="card-text">前沿技术分享与讨论，邀请行业专家进行技术讲解，参与即可获得积分。</p>
+                                    <p><strong>时间:</strong> 2023-12-20 10:00</p>
+                                    <p><strong>地点:</strong> 线上会议</p>
+                                    <p><strong>积分奖励:</strong> 30积分</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>已报名: 45/100</span>
+                                    <a href="#" class="btn">立即报名</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=活动图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">年终总结会</h3>
+                                    <p class="card-text">回顾一年工作成果，分享经验与收获，共同展望新的一年计划与目标。</p>
+                                    <p><strong>时间:</strong> 2023-12-28 13:30</p>
+                                    <p><strong>地点:</strong> 多功能厅</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>已报名: 28/50</span>
+                                    <a href="#" class="btn">立即报名</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=活动图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">新年联欢会</h3>
+                                    <p class="card-text">欢庆新年到来，部门同事共聚一堂，参与互动游戏，享受美食与欢乐时光。</p>
+                                    <p><strong>时间:</strong> 2024-01-15 18:00</p>
+                                    <p><strong>地点:</strong> 公司餐厅</p>
+                                    <p><strong>积分奖励:</strong> 60积分</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>已报名: 20/60</span>
+                                    <a href="#" class="btn">立即报名</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 活动报名页面 -->
+                    <div id="activity-content" style="display: none;">
+                        <h2 class="content-title">活动报名</h2>
+                        <div class="tabs">
+                            <div class="tab active">全部活动</div>
+                            <div class="tab">进行中</div>
+                            <div class="tab">即将开始</div>
+                            <div class="tab">已结束</div>
+                        </div>
+                        
+                        <div class="card-container">
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=活动图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">团队建设活动</h3>
+                                    <p class="card-text">参与团队建设活动，增强团队凝聚力，共同完成挑战任务获取积分奖励。</p>
+                                    <p><strong>时间:</strong> 2023-12-15 14:00</p>
+                                    <p><strong>地点:</strong> 公司大会议室</p>
+                                    <p><strong>积分奖励:</strong> 50积分</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>已报名: 15/30</span>
+                                    <a href="#" class="btn">立即报名</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=活动图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">技术分享会</h3>
+                                    <p class="card-text">前沿技术分享与讨论，邀请行业专家进行技术讲解，参与即可获得积分。</p>
+                                    <p><strong>时间:</strong> 2023-12-20 10:00</p>
+                                    <p><strong>地点:</strong> 线上会议</p>
+                                    <p><strong>积分奖励:</strong> 30积分</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>已报名: 45/100</span>
+                                    <a href="#" class="btn">立即报名</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=活动图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">年终总结会</h3>
+                                    <p class="card-text">回顾一年工作成果，分享经验与收获，共同展望新的一年计划与目标。</p>
+                                    <p><strong>时间:</strong> 2023-12-28 13:30</p>
+                                    <p><strong>地点:</strong> 多功能厅</p>
+                                    <p><strong>积分奖励:</strong> 40积分</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>已报名: 28/50</span>
+                                    <a href="#" class="btn">立即报名</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=活动图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">新年联欢会</h3>
+                                    <p class="card-text">欢庆新年到来，部门同事共聚一堂，参与互动游戏，享受美食与欢乐时光。</p>
+                                    <p><strong>时间:</strong> 2024-01-15 18:00</p>
+                                    <p><strong>地点:</strong> 公司餐厅</p>
+                                    <p><strong>积分奖励:</strong> 60积分</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>已报名: 20/60</span>
+                                    <a href="#" class="btn">立即报名</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 图书借阅页面 -->
+                    <div id="library-content" style="display: none;">
+                        <h2 class="content-title">图书借阅</h2>
+                        <div class="form-group" style="max-width: 500px; margin-bottom: 30px;">
+                            <input type="text" class="form-control" placeholder="搜索图书名称、作者或关键词...">
+                        </div>
+                        
+                        <div class="tabs">
+                            <div class="tab active">全部图书</div>
+                            <div class="tab">技术类</div>
+                            <div class="tab">管理类</div>
+                            <div class="tab">文学类</div>
+                        </div>
+                        
+                        <div class="card-container">
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=图书封面');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">《高效能人士的七个习惯》</h3>
+                                    <p class="card-text">本书介绍了高效能人士的七个习惯，帮助读者提升个人效能和领导力。</p>
+                                    <p><strong>作者:</strong> 史蒂芬·柯维</p>
+                                    <p><strong>状态:</strong> <span style="color: green;">可借阅</span></p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>借阅次数: 35</span>
+                                    <a href="#" class="btn">立即借阅</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=图书封面');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">《深入理解计算机系统》</h3>
+                                    <p class="card-text">计算机科学经典教材，深入讲解计算机系统的基本原理和工作机制。</p>
+                                    <p><strong>作者:</strong> Randal E. Bryant</p>
+                                    <p><strong>状态:</strong> <span style="color: red;">已借出</span></p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>借阅次数: 42</span>
+                                    <a href="#" class="btn btn-secondary">预约借阅</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=图书封面');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">《人月神话》</h3>
+                                    <p class="card-text">软件工程领域的经典著作，探讨了软件项目管理中的各种问题和挑战。</p>
+                                    <p><strong>作者:</strong> 弗雷德里克·布鲁克斯</p>
+                                    <p><strong>状态:</strong> <span style="color: green;">可借阅</span></p>
+                                </div>
+                                <div class="card-footer">
+                                    <span>借阅次数: 28</span>
+                                    <a href="#" class="btn">立即借阅</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 积分商城页面 -->
+                    <div id="points-content" style="display: none;">
+                        <h2 class="content-title">积分商城</h2>
+                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                            <p><strong>我的积分:</strong> <span style="font-size: 24px; color: #e74c3c;">350</span></p>
+                            <p>参与部门活动和借阅图书可获得积分奖励，积分可兑换各种礼品和福利。</p>
+                        </div>
+                        
+                        <div class="tabs">
+                            <div class="tab active">全部商品</div>
+                            <div class="tab">办公用品</div>
+                            <div class="tab">数码产品</div>
+                            <div class="tab">生活用品</div>
+                        </div>
+                        
+                        <div class="card-container">
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=商品图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">机械键盘</h3>
+                                    <p class="card-text">Cherry轴机械键盘，87键配置，黑色简约设计。</p>
+                                    <p><strong>类别:</strong> 办公用品</p>
+                                    <p><strong>库存:</strong> 5件</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span style="color: #e74c3c;">500积分</span>
+                                    <a href="#" class="btn">立即兑换</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=商品图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">无线鼠标</h3>
+                                    <p class="card-text">无线蓝牙鼠标，人体工程学设计，续航持久。</p>
+                                    <p><strong>类别:</strong> 办公用品</p>
+                                    <p><strong>库存:</strong> 8件</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span style="color: #e74c3c;">300积分</span>
+                                    <a href="#" class="btn">立即兑换</a>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-img" style="background-image: url('https://via.placeholder.com/300x180?text=商品图片');"></div>
+                                <div class="card-content">
+                                    <h3 class="card-title">保温杯</h3>
+                                    <p class="card-text">不锈钢真空保温杯，500ml容量，12小时保温。</p>
+                                    <p><strong>类别:</strong> 生活用品</p>
+                                    <p><strong>库存:</strong> 15件</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span style="color: #e74c3c;">200积分</span>
+                                    <a href="#" class="btn">立即兑换</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3 class="footer-title">关于我们</h3>
+                    <p style="color: #bdc3c7; line-height: 1.6;">部门活动管理平台致力于为部门提供便捷的活动管理、图书借阅和积分兑换服务。</p>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#activity">活动报名</a></li>
+                        <li><a href="#library">图书借阅</a></li>
+                        <li><a href="#points">积分商城</a></li>
+                        <li><a href="#help">帮助中心</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">联系我们</h3>
+                    <ul class="footer-links">
+                        <li>邮箱：support@company.com</li>
+                        <li>电话：400-123-4567</li>
+                        <li>地址：科技园区创新大厦</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2023 部门活动管理平台 版权所有
+            </div>
+        </footer>
+    </div>
+    
+    <!-- 后台管理界面 -->
+    <div id="admin-interface" style="display: none;">
+        <header class="admin-header">
+            <div class="navbar-container">
+                <div class="logo">后台管理系统</div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">控制台</a></li>
+                    <li><a href="#admin-profile">管理员信息</a></li>
+                    <li><a href="#logout">退出登录</a></li>
+                </ul>
+            </div>
+        </header>
+        
+        <div class="admin-sidebar">
+            <ul class="admin-sidebar-menu">
+                <li><a href="#" class="active">控制台</a></li>
+                <li><a href="#admin-activity">活动管理</a></li>
+                <li><a href="#admin-library">图书管理</a></li>
+                <li><a href="#admin-points">积分商城管理</a></li>
+                <li><a href="#admin-users">用户管理</a></li>
+                <li><a href="#admin-settings">系统设置</a></li>
+            </ul>
+        </div>
+        
+        <div class="admin-content">
+            <h2 class="content-title">控制台</h2>
+            <div class="card-container">
+                <div class="card" style="width: calc(25% - 15px);">
+                    <div class="card-content">
+                        <h3 class="card-title">总用户数</h3>
+                        <p style="font-size: 24px; color: #3498db;">256</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="width: calc(25% - 15px);">
+                    <div class="card-content">
+                        <h3 class="card-title">活动数量</h3>
+                        <p style="font-size: 24px; color: #e74c3c;">12</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="width: calc(25% - 15px);">
+                    <div class="card-content">
+                        <h3 class="card-title">图书总数</h3>
+                        <p style="font-size: 24px; color: #2ecc71;">158</p>
+                    </div>
+                </div>
+                
+                <div class="card" style="width: calc(25% - 15px);">
+                    <div class="card-content">
+                        <h3 class="card-title">商品数量</h3>
+                        <p style="font-size: 24px; color: #f39c12;">45</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="content-title" style="margin-top: 30px;">最近活动</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>活动名称</th>
+                        <th>时间</th>
+                        <th>地点</th>
+                        <th>报名人数</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>团队建设活动</td>
+                        <td>2023-12-15 14:00</td>
+                        <td>公司大会议室</td>
+                        <td>15/30</td>
+                        <td><span style="color: #2ecc71;">进行中</span></td>
+                        <td>
+                            <a href="#" class="btn" style="padding: 4px 8px; font-size: 14px;">编辑</a>
+                            <a href="#" class="btn btn-secondary" style="padding: 4px 8px; font-size: 14px;">删除</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>技术分享会</td>
+                        <td>2023-12-20 10:00</td>
+                        <td>线上会议</td>
+                        <td>45/100</td>
+                        <td><span style="color: #f39c12;">未开始</span></td>
+                        <td>
+                            <a href="#" class="btn" style="padding: 4px 8px; font-size: 14px;">编辑</a>
+                            <a href="#" class="btn btn-secondary" style="padding: 4px 8px; font-size: 14px;">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h2 class="content-title" style="margin-top: 30px;">系统概览</h2>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="card-title">系统状态</h3>
+                        <p><strong>CPU使用率:</strong> 35%</p>
+                        <p><strong>内存使用率:</strong> 42%</p>
+                        <p><strong>磁盘使用率:</strong> 58%</p>
+                        <p><strong>运行时间:</strong> 15天</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="card-title">最近登录</h3>
+                        <table class="table" style="margin: 0;">
+                            <tr>
+                                <td>管理员</td>
+                                <td>2023-12-10 09:30</td>
+                            </tr>
+                            <tr>
+                                <td>系统维护员</td>
+                                <td>2023-12-09 14:20</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-content">
+                        <h3 class="card-title">待办事项</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 10px;">✓ 系统更新维护</li>
+                            <li style="margin-bottom: 10px;">⚪ 活动审核 (3)</li>
+                            <li style="margin-bottom: 10px;">⚪ 图书入库 (5)</li>
+                            <li style="margin-bottom: 10px;">✓ 积分规则更新</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 页面切换逻辑
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+                
+                const target = this.getAttribute('href').substring(1);
+                if (target === 'admin') {
+                    document.getElementById('user-interface').style.display = 'none';
+                    document.getElementById('admin-interface').style.display = 'block';
+                } else {
+                    document.getElementById('user-interface').style.display = 'block';
+                    document.getElementById('admin-interface').style.display = 'none';
+                    
+                    document.querySelectorAll('[id$="-content"]').forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    if (target) {
+                        document.getElementById(target + '-content').style.display = 'block';
+                    } else {
+                        document.getElementById('home-content').style.display = 'block';
+                    }
+                }
+            });
+        });
+        
+        // 标签页切换逻辑
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabs = this.parentElement.querySelectorAll('.tab');
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

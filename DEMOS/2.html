@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部门活动管理平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'gradient': 'gradient 8s linear infinite',
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .neumorphism {
+            box-shadow: 20px 20px 60px #d1d1d1,
+                       -20px -20px 60px #ffffff;
+        }
+        .gradient-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="glass-effect fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center space-x-12">
+                    <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">活动管理平台</span>
+                    <div class="flex space-x-8">
+                        <a href="#" class="relative group">
+                            <span class="text-gray-800 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors duration-300">活动报名</span>
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                        </a>
+                        <a href="#" class="relative group">
+                            <span class="text-gray-800 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors duration-300">图书借阅</span>
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                        </a>
+                        <a href="#" class="relative group">
+                            <span class="text-gray-800 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors duration-300">积分商城</span>
+                            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-purple-500"></span>
+                        </span>
+                        <button class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-300">
+                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">登录</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="max-w-7xl mx-auto pt-24 px-6">
+        <!-- 活动报名模块 -->
+        <section class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">最新活动</h2>
+                <a href="#" class="text-purple-600 hover:text-purple-700 flex items-center">
+                    查看全部
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 活动卡片 -->
+                <div class="group bg-white rounded-2xl neumorphism overflow-hidden transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4" alt="活动图片" class="w-full h-56 object-cover">
+                        <div class="absolute top-4 right-4 bg-white rounded-full px-3 py-1 text-sm font-medium text-purple-600">
+                            进行中
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800">团建活动</span>
+                            <span class="ml-2 text-xs text-gray-500">限额 30 人</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">创新工作坊</h3>
+                        <p class="text-gray-600 mb-4">激发创造力，培养创新思维，一起来参与精彩的工作坊吧！</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex -space-x-2">
+                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/1.jpg" alt="">
+                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/2.jpg" alt="">
+                                    <img class="w-6 h-6 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/3.jpg" alt="">
+                                </div>
+                                <span class="ml-2 text-sm text-gray-500">已有 15 人报名</span>
+                            </div>
+                            <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transform hover:scale-105 transition-all duration-300">
+                                立即报名
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 更多活动卡片 -->
+            </div>
+        </section>
+
+        <!-- 图书借阅模块 -->
+        <section class="mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">热门图书</h2>
+                <div class="flex space-x-4">
+                    <button class="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition-colors duration-300">技术</button>
+                    <button class="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition-colors duration-300">管理</button>
+                    <button class="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-purple-100 hover:text-purple-600 transition-colors duration-300">文学</button>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- 图书卡片 -->
+                <div class="group bg-white rounded-xl neumorphism p-4 transform hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative mb-4">
+                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c" alt="书籍封面" class="w-full h-56 object-cover rounded-lg shadow-md">
+                        <div class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">可借阅</div>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">设计心理学 4</h3>
+                    <p class="text-sm text-gray-600 mb-2">唐纳德·诺曼</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                            </svg>
+                            <span class="ml-1 text-sm text-gray-600">4.9</span>
+                        </div>
+                        <button class="text-purple-600 hover:text-purple-700 text-sm font-medium">借阅</button>
+                    </div>
+                </div>
+                <!-- 更多图书卡片 -->
+            </div>
+        </section>
+
+        <!-- 积分商城模块 -->
+        <section>
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">积分商城</h2>
+                <div class="flex items-center bg-white rounded-full px-4 py-2 neumorphism">
+                    <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L10 6.477 6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.616a1 1 0 01.894-1.79l1.599.8L9 4.323V3a1 1 0 011-1zm-5 8.274l-.818 2.552c.25.112.526.174.818.174.292 0 .569-.062.818-.174L5 10.274zm10 0l-.818 2.552c.25.112.526.174.818.174.292 0 .569-.062.818-.174L15 10.274z"></path>
+                    </svg>
+                    <span class="ml-2 text-lg font-sem
+<button id="closeAdminModal" class="text-white hover:text-gray-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 后台内容区 -->
+            <div class="p-6">
+                <!-- 数据概览 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl p-6 text-white">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold">活动总数</h3>
+                            <svg class="w-8 h-8 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-3xl font-bold">24</p>
+                        <p class="text-sm opacity-75 mt-2">较上月增长 12%</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl p-6 text-white">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold">借阅总量</h3>
+                            <svg class="w-8 h-8 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <p class="text-3xl font-bold">156</p>
+                        <p class="text-sm opacity-75 mt-2">本月新增 45 本</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl p-6 text-white">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold">积分兑换</h3>
+                            <svg class="w-8 h-8 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-3xl font-bold">8,520</p>
+                        <p class="text-sm opacity-75 mt-2">本周兑换 1,200 积分</p>
+                    </div>
+                </div>
+
+                <!-- 管理选项卡 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="flex border-b">
+                        <button class="px-6 py-3 text-sm font-medium text-purple-600 border-b-2 border-purple-600">活动管理</button>
+                        <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-purple-600">图书管理</button>
+                        <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-purple-600">商品管理</button>
+                        <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-purple-600">用户管理</button>
+                    </div>
+
+                    <!-- 活动管理内容 -->
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="relative">
+                                <input type="text" placeholder="搜索活动..." class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                                <svg class="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                            <button class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors duration-300">
+                                新建活动
+                            </button>
+                        </div>
+
+                        <!-- 活动列表 -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead>
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">活动名称</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">报名人数</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">开始时间</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                                                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                                    </svg>
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-gray-900">创新工作坊</div>
+                                                    <div class="text-sm text-gray-500">团建活动</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                进行中
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            15/30
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            2024-01-20
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="#" class="text-purple-600 hover:text-purple-900 mr-4">编辑</a>
+                                            <a href="#" class="text-red-600 hover:text-red-900">删除</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 管理后台模态框控制
+        const adminButton = document.querySelector('.fixed.bottom-4.right-4 button');
+        const adminModal = document.getElementById('adminModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+
+        adminButton.addEventListener('click', () => {
+            adminModal.classList.remove('hidden');
+        });
+
+        closeAdminModal.addEventListener('click', () => {
+            adminModal.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
